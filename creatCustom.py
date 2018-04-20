@@ -86,7 +86,7 @@ def writeToExcel():
 
 def main():	
 	if len(sys.argv) == 1 :
-		print "请输入客户名称"
+		print "请输入客户名称 路径"
 		sys.exit(1)		
 	customName = sys.argv[1]
 	

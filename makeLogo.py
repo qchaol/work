@@ -59,7 +59,7 @@ def removeTempFile():
 def selectArgv():
 	global isspr
 	isspr = 0
-	flat = raw_input("please input a number: \n1 zh960 \n2 k960 \n3 b960")
+	flat = raw_input("please input a number: \n1 zh960 \n2 k960 \n3 b960\n4 a708 a706\n")
 	 
 	if flat == "1":
 		return "wxganl wxxganl wuxganl"
@@ -68,6 +68,10 @@ def selectArgv():
 	if flat =="3":
 		isspr = 3
 		return "wxganl wxxganl wxga"
+	if flat =="4":
+		isspr = 3
+		return "wsvga_wsvganl_wxga"
+		
 	print "wrong input,bye!!"	
 	sys.exit(1)
 	
