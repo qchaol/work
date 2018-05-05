@@ -1,0 +1,8 @@
+作用：
+自动转换图片格式
+自动复制到各目录下
+自动执行生成脚本
+
+1 放图片和脚本到logo根目录下
+
+2 执行命令 python makeLogo.py l.jpg wxganl wxxganl wuxganl    注带参数 参数为图片名 如ll.jpg wxganl wxxganl wuxganl  是所需分辨率

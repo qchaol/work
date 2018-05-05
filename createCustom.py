@@ -11,7 +11,7 @@ dir = os.getcwd()
 cf = "custom_feature/feature/"
 vf = "version_feature/feature/"
 
-keys = ['custom','appRemoveable','appUnremoveable','priv-app','blackAppConfig','logoBin','wallpapers','bootanimation_1','bootanimation','machineAttribute', 'shutanimation','bootaudio','apnsConf','blackAppIconConfig','custpackConf','fatImg','shutaudio','configs','bakres','sdcardZip']
+keys = ['custom','appRemoveable','appUnremoveable','priv-app','blackAppConfig','logoBin','wallpapers','bootanimation_2','bootanimation_1','bootanimation','machineAttribute', 'shutanimation','bootaudio','apnsConf','blackAppIconConfig','custpackConf','fatImg','shutaudio','configs','bakres','gms','sdcardZip']
 
 dicts={}
 
@@ -44,8 +44,15 @@ def mvFileToCustomFeature(direct,cn):
 				shutil.copyfile(direct+name,cf+"wallpapers/"+cn+os.path.splitext(name)[1])
 				dicts['wallpapers'] = cn+os.path.splitext(name)[1]
 			if os.path.splitext(name)[1] ==".zip":
-				shutil.copyfile(direct+name,cf+"bootanimation/"+cn+os.path.splitext(name)[1])
-				dicts['bootanimation'] = cn+os.path.splitext(name)[1]
+				if "_1" in os.path.splitext(name)[0]:
+					shutil.copyfile(direct+name,cf+"bootanimation/"+cn+"_1"+os.path.splitext(name)[1])
+					dicts['bootanimation_1'] = cn+"_1"+os.path.splitext(name)[1]
+				if "_2" in os.path.splitext(name)[0]:
+					shutil.copyfile(direct+name,cf+"bootanimation/"+cn+"_2"+os.path.splitext(name)[1])
+					dicts['bootanimation_2'] = cn+"_2"+os.path.splitext(name)[1]
+				else:
+					shutil.copyfile(direct+name,cf+"bootanimation/"+cn+os.path.splitext(name)[1])
+					dicts['bootanimation'] = cn+os.path.splitext(name)[1]
 			if os.path.splitext(name)[1] ==".mp3":
 				shutil.copyfile(direct+name,cf+"bootaudio/"+cn+os.path.splitext(name)[1])
 				dicts['bootaudio'] = cn+os.path.splitext(name)[1]
@@ -81,7 +88,19 @@ def writeToExcel():
 			sheet1.write(1,i,dicts[keys[i]])
 	book.save('temp.xls') 
 	
-	
+
+def getFileSize(filePath):
+    size = 0
+    for root, dirs, files in os.walk(filePath):
+        for f in files:
+            size += os.path.getsize(os.path.join(root, f))
+            #print(f)
+    size = size / 1024.0 /1024.0
+    if size > 300:
+       dicts['custpackConf'] = "600M.txt"
+    if size > 600:
+       dicts['custpackConf'] = "800M.txt"
+    	
 	
 
 def main():	
@@ -95,6 +114,7 @@ def main():
 	dicts['custom'] = customName
 	if len(sys.argv)>2:
 		direct = sys.argv[2]
+		getFileSize(direct)
 		mvFileToCustomFeature(direct,customName)
 	writeToExcel()
 
