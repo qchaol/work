@@ -1,0 +1,7 @@
+#ABNF 1.0 UTF-8;
+language zh-CN;
+mode voice;
+
+root $main;
+$main = [打开] $name;
+$name = 相机|计算器|音乐|录音机|图库;
