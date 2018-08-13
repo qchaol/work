@@ -5,6 +5,8 @@ import os
 import shutil
 import xlwt
 import collections
+import commands
+
 
 dir = os.getcwd()
 
@@ -71,11 +73,13 @@ def mvFileToCustomFeature(direct,cn):
 				dicts['bakres'] = cn
 			if name =="apk":
 				print name
-				shutil.copytree(direct+name,cf+"app/"+cn)
+				if not os.path.exists(cf+"app/"+cn):
+					shutil.copytree(direct+name,cf+"app/"+cn)
 				dicts['appUnremoveable'] = cn
 			if name =="apkr":
 				print name
-				shutil.copytree(direct+name,cf+"app/"+cn+"remove")
+				if not os.path.exists(cf+"app/"+cn+"remove"):
+					shutil.copytree(direct+name,cf+"app/"+cn+"remove")
 				dicts['appRemoveable'] = cn+"remove"
 				
 
@@ -95,13 +99,23 @@ def getFileSize(filePath):
         for f in files:
             size += os.path.getsize(os.path.join(root, f))
             #print(f)
-    size = size / 1024.0 /1024.0
+    size = size / 1024.0 / 1024.0
+    print ("custom size = %fM" %(size))
+    if size < 300:
+       return
     if size > 300:
        dicts['custpackConf'] = "600M.txt"
     if size > 600:
        dicts['custpackConf'] = "800M.txt"
+    if size < 1000:
+       dicts['custpackConf'] = str(size+100)[0] + "00M.txt"
+    else:
+       dicts['custpackConf'] = str(size+100)[0] + "000M.txt"	
     	
 	
+def makeLogo():
+	commands.getstatusoutput('ls -l')
+
 
 def main():	
 	if len(sys.argv) == 1 :

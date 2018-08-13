@@ -84,11 +84,7 @@ if __name__ =="__main__":
 		converseBmp(sys.argv[1])	
 	else:
 		print """#########################################################
-		\nexample:\n    python makeLogo.py l.jpg 
-		       \n    zh960: wxganl wxxganl wuxganl \n
-		k960:wsvganl wxganl wxga \n
-		               
-		       #########################################################\n"""
+		\nexample:\n    python makeLogo.py l.jpg\n#########################################################\n"""
 		sys.exit(1)
 	select =selectArgv()	
 	movePic(select.split(" "))
